@@ -1,125 +1,53 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Simple To-Do App</title>
-    <style>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width,initial-scale=1" />
+        <title>To‑Do — Professional</title>
+        <link rel="stylesheet" href="styles.css">
+    </head>
+    <body>
+        <main class="app" id="app">
+            <header class="app-header">
+                <h1 class="title">To‑Do</h1>
+                <p class="subtitle">Focus on what matters — clean, fast, and accessible.</p>
+            </header>
 
-        body {
-            font-family: Arial, sans-serif;
-            max-width: 500px;
-            margin: 50px auto;
-            padding: 20px;
-            background: linear-gradient(135deg, darkgreen, teal);
-            min-height: 100vh;
-        }
+            <section class="card" aria-labelledby="new-task">
+                <form id="todoForm" class="todo-form" novalidate>
+                    <label id="new-task" for="todoInput" class="visually-hidden">New task</label>
+                    <div class="input-group">
+                        <input id="todoInput" type="text" placeholder="Add a task (press Enter)" autocomplete="off" />
+                        <button id="addButton" type="submit" class="btn btn-primary">Add</button>
+                    </div>
+                </form>
 
-        h1 {
-            font-size: 24px;
-            margin-bottom: 20px;
-        }
+                <div class="controls">
+                    <div class="filters" role="tablist" aria-label="Filter tasks">
+                        <button class="filter-btn" data-filter="all" aria-pressed="true">All</button>
+                        <button class="filter-btn" data-filter="active" aria-pressed="false">Active</button>
+                        <button class="filter-btn" data-filter="completed" aria-pressed="false">Completed</button>
+                    </div>
+                    <div class="counts" aria-live="polite"></div>
+                </div>
 
+                <ul id="todoList" class="todo-list" aria-live="polite" aria-label="To-do list"></ul>
 
-        .input-container {
-            margin-bottom: 20px;
-        }
+                <div id="emptyState" class="empty-state" hidden>
+                    <svg width="160" height="100" viewBox="0 0 160 100" aria-hidden="true">
+                        <g fill="none" fill-rule="evenodd">
+                            <rect x="10" y="10" width="140" height="70" rx="8" fill="rgba(255,255,255,0.02)"/>
+                            <path d="M36 46c6-6 12-6 18 0s12 6 18 0" stroke="rgba(124,58,237,0.18)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </g>
+                    </svg>
+                    <p class="empty-title">No tasks yet</p>
+                    <p class="empty-sub">Add your first task to get things done.</p>
+                </div>
+            </section>
 
-        #todoInput {
-            padding: 8px;
-            font-size: 14px;
-            width: 70%;
-            border: 1px solid black;
-        }
+            <footer class="app-footer">Small app • Local storage • Keyboard-friendly</footer>
+        </main>
 
-        #addButton {
-            padding: 8px 16px;
-            font-size: 14px;
-            border: 1px solid black;
-            background: white;
-            cursor: pointer;
-        }
-
-
-        #todoList {
-            list-style: none;
-            padding: 0;
-        }
-
-        #todoList li {
-            padding: 10px;
-            margin-bottom: 5px;
-            border: 1px solid black;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .delete-btn {
-            padding: 4px 8px;
-            font-size: 12px;
-            border: 1px solid black;
-            background: white;
-            cursor: pointer;
-        }
-    </style>
-</head>
-<body>
-    <h1>To-Do List</h1>
-
-
-    <div class="input-container">
-        <input type="text" id="todoInput" placeholder="Enter a task...">
-        <button id="addButton">Add</button>
-    </div>
-
-
-    <ul id="todoList"></ul>
-
-    <script>
-
-        const todoInput = document.getElementById('todoInput');
-        const addButton = document.getElementById('addButton');
-        const todoList = document.getElementById('todoList');
-
-        function addTodo() {
-            const taskText = todoInput.value.trim();
-
-            if (taskText === '') {
-                alert('Please enter a task!');
-                return;
-            }
-
-            const li = document.createElement('li');
-
-            const taskSpan = document.createElement('span');
-            taskSpan.textContent = taskText;
-
-            const deleteBtn = document.createElement('button');
-            deleteBtn.textContent = 'Delete';
-            deleteBtn.className = 'delete-btn';
-
-            deleteBtn.addEventListener('click', function() {
-                li.remove();
-            });
-
-            li.appendChild(taskSpan);
-            li.appendChild(deleteBtn);
-
-            todoList.appendChild(li);
-
-            todoInput.value = '';
-
-            todoInput.focus();
-        }
-
-        addButton.addEventListener('click', addTodo);
-
-        todoInput.addEventListener('keypress', function(event) {
-            if (event.key === 'Enter') {
-                addTodo();
-            }
-        });
-    </script>
-</body>
+        <script src="app.js" defer></script>
+    </body>
 </html>
